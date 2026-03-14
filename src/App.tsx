@@ -1434,87 +1434,74 @@ export default function App() {
             </div>
           </section>
 
-          {/* Category & Scene Section */}
-          <section className="bg-white py-6 border-b border-slate-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-              {/* Categories */}
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-black text-slate-900">热门分类</h3>
-                    <p className="text-xs text-slate-400 font-bold mt-1">探索你最喜爱的美食种类</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat.name}
-                      onClick={() => setSelectedCategory(cat.name)}
-                      className={`flex flex-col items-center gap-2 group transition-all ${selectedCategory === cat.name ? 'scale-110' : 'hover:scale-105'}`}
-                    >
-                      <div className={`w-12 h-12 rounded-[18px] flex items-center justify-center text-2xl shadow-sm transition-all ${selectedCategory === cat.name ? 'bg-primary shadow-lg shadow-primary/20 rotate-6' : 'bg-slate-50 group-hover:bg-white group-hover:shadow-md'}`}>
-                        {cat.icon}
-                      </div>
-                      <span className={`text-[10px] font-black transition-colors ${selectedCategory === cat.name ? 'text-slate-900' : 'text-slate-400 group-hover:text-slate-600'}`}>
-                        {cat.name}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Scenes */}
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-black text-slate-900">用餐场景</h3>
-                    <p className="text-xs text-slate-400 font-bold mt-1">根据你的当下心情选择</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                  {scenes.map((scene) => (
-                    <button
-                      key={scene.name}
-                      onClick={() => setSelectedScene(scene.name)}
-                      className={`flex flex-col items-center gap-2 group transition-all ${selectedScene === scene.name ? 'scale-110' : 'hover:scale-105'}`}
-                    >
-                      <div className={`w-12 h-12 rounded-[18px] flex items-center justify-center text-2xl shadow-sm transition-all ${selectedScene === scene.name ? 'bg-slate-900 text-white shadow-lg shadow-slate-200 -rotate-6' : 'bg-slate-50 group-hover:bg-white group-hover:shadow-md'}`}>
-                        {scene.icon}
-                      </div>
-                      <span className={`text-[10px] font-black transition-colors ${selectedScene === scene.name ? 'text-slate-900' : 'text-slate-400 group-hover:text-slate-600'}`}>
-                        {scene.name}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Main Content with Sidebar */}
           <section id="restaurant-list" className="py-20 bg-slate-50/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row gap-12">
                 
                 {/* Sidebar Filters */}
-                <aside className="w-full lg:w-64 flex-shrink-0">
-                  <div className="sticky top-32 space-y-10">
-                    <div>
-                      <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6">美食分类</h3>
-                      <div className="flex flex-col gap-2">
+                <aside className="w-full lg:w-72 flex-shrink-0">
+                  <div className="sticky top-32 space-y-10 max-h-[calc(100vh-160px)] overflow-y-auto no-scrollbar pr-2">
+                    {/* Categories in Sidebar */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-black text-slate-900">热门分类</h4>
+                        {selectedCategory !== '全部' && (
+                          <button 
+                            onClick={() => setSelectedCategory('全部')}
+                            className="text-[10px] font-black text-primary-dark hover:underline"
+                          >
+                            重置
+                          </button>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
                         {categories.map((cat) => (
                           <button
                             key={cat.name}
                             onClick={() => setSelectedCategory(cat.name)}
-                            className={`w-full flex items-center justify-between px-5 py-3.5 rounded-2xl transition-all group ${selectedCategory === cat.name ? 'bg-slate-900 text-white shadow-lg shadow-slate-200' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-100'}`}
+                            className={`flex flex-col items-center justify-center p-3 rounded-2xl transition-all border ${
+                              selectedCategory === cat.name 
+                                ? 'bg-primary border-primary shadow-lg shadow-primary/20 scale-105' 
+                                : 'bg-white border-slate-100 hover:border-slate-200 hover:shadow-sm'
+                            }`}
                           >
-                            <div className="flex items-center gap-3">
-                              <span className="text-lg">{cat.icon}</span>
-                              <span className="font-bold text-sm">{cat.name}</span>
-                            </div>
-                            {selectedCategory === cat.name && (
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            )}
+                            <span className="text-xl mb-1">{cat.icon}</span>
+                            <span className={`text-[10px] font-black ${selectedCategory === cat.name ? 'text-slate-900' : 'text-slate-400'}`}>
+                              {cat.name}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Scenes in Sidebar */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-black text-slate-900">用餐场景</h4>
+                        {selectedScene !== '全部' && (
+                          <button 
+                            onClick={() => setSelectedScene('全部')}
+                            className="text-[10px] font-black text-primary-dark hover:underline"
+                          >
+                            重置
+                          </button>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        {scenes.map((scene) => (
+                          <button
+                            key={scene.name}
+                            onClick={() => setSelectedScene(scene.name)}
+                            className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all border ${
+                              selectedScene === scene.name 
+                                ? 'bg-slate-900 border-slate-900 text-white shadow-lg' 
+                                : 'bg-white border-slate-100 hover:border-slate-200 text-slate-600'
+                            }`}
+                          >
+                            <span className="text-lg">{scene.icon}</span>
+                            <span className="text-xs font-black">{scene.name}</span>
+                            {selectedScene === scene.name && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />}
                           </button>
                         ))}
                       </div>
