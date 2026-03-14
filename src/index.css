@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #FFD200;
+  --color-primary-dark: #E6BD00;
+  --color-primary-light: #FFF0B3;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+body {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.btn-primary {
+  @apply bg-primary hover:bg-primary-dark text-black font-bold py-3 px-6 rounded-xl transition-all duration-200;
+}
+
+.card-shadow {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}

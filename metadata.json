@@ -1,0 +1,5 @@
+{
+  "name": "高校联盟美食地图",
+  "description": "专为高校联盟学子设计的本地美食导航：解决“今天吃什么”难题，提供场景化推荐与学生真实口碑。",
+  "requestFramePermissions": ["geolocation"]
+}
